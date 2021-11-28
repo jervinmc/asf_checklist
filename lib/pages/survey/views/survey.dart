@@ -11,6 +11,7 @@ class Survey extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Survey"),
+        backgroundColor: Color(0xff34a0a4),
       ),
       body: ListView(
         children: [
@@ -41,30 +42,39 @@ class _QuestionaireState extends State<Questionaire> {
     return Padding(
       padding: EdgeInsets.all(30),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '1. How much exercise do you do per week?',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: List.generate(_questionaire.questionaire().length, (index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text((index+1).toString()+'. '+_questionaire.questionaire()[index].toString()),
+                  Choices()
+                ],
+              );
+            })
           ),
-          Choices(),
-          Text(
-            '2. How well do you sleep, on average?',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Choices(),
-          Text(
-            '3. Do you have any illnesses or conditions?',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Choices(),
-          Text(
-            '4. How do you identify?',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Choices(),
+          Container(
+                    padding: EdgeInsets.only(top: 15),
+                    width: 250,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xff34a0a4)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ))),
+                      child: Text('Finish'),
+                      onPressed: () {
+                      
+                      },
+                    ),
+                  ),
         ],
-      ),
+      )
     );
   }
 }
